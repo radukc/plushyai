@@ -14,3 +14,9 @@ export const {
   resetPassword,
   sendVerificationEmail,
 } = authClient
+
+export const signInWithGoogle = () =>
+  signIn.social({
+    provider: "google",
+    callbackURL: "/dashboard",
+  })
