@@ -1,20 +1,137 @@
 "use client";
 
-import Link from "next/link";
-import { Lock, Sparkles, ImageIcon } from "lucide-react";
+import * as React from "react";
+import { Lock } from "lucide-react";
+
 import { UserProfile } from "@/components/auth/user-profile";
-import { Button } from "@/components/ui/button";
+import { UploadPanel } from "@/components/dashboard/upload-panel";
+import { StyleOptions } from "@/components/dashboard/style-options";
+import { GenerationSettings } from "@/components/dashboard/generation-settings";
+import { PreviewPanel } from "@/components/dashboard/preview-panel";
+import { ResultsDisplay } from "@/components/dashboard/results-display";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSession } from "@/lib/auth-client";
 import { useMockAuth } from "@/lib/mock-auth";
+import { mockGalleryImages } from "@/lib/mock-data";
+import type { GenerationStatus } from "@/components/generation-progress";
 
 export default function DashboardPage() {
   const { data: session, isPending } = useSession();
-  const { user: mockUser, isAuthenticated: isMockAuthenticated } = useMockAuth();
+  const { isAuthenticated: isMockAuthenticated } = useMockAuth();
 
   // Use mock auth for UI development
   const isAuthenticated = isMockAuthenticated || !!session;
-  const user = mockUser || session?.user;
 
+  // State for the generation flow
+  const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
+  const [selectedStyle, setSelectedStyle] = React.useState("classic");
+  const [quality, setQuality] = React.useState("standard");
+  const [backgroundRemoval, setBackgroundRemoval] = React.useState(false);
+  const [generationStatus, setGenerationStatus] =
+    React.useState<GenerationStatus>("idle");
+  const [generationProgress, setGenerationProgress] = React.useState(0);
+  const [generatedImageUrl, setGeneratedImageUrl] = React.useState<string | null>(
+    null
+  );
+  const [isSavedToGallery, setIsSavedToGallery] = React.useState(false);
+
+  // Handle image selection
+  const handleImageSelect = (file: File) => {
+    setSelectedImage(file);
+    setPreviewUrl(URL.createObjectURL(file));
+    // Reset generation state
+    setGenerationStatus("idle");
+    setGenerationProgress(0);
+    setGeneratedImageUrl(null);
+    setIsSavedToGallery(false);
+  };
+
+  // Handle image clear
+  const handleImageClear = () => {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+    setSelectedImage(null);
+    setPreviewUrl(null);
+    setGenerationStatus("idle");
+    setGenerationProgress(0);
+    setGeneratedImageUrl(null);
+    setIsSavedToGallery(false);
+  };
+
+  // Simulate generation process
+  const handleGenerate = () => {
+    if (!selectedImage) return;
+
+    setGenerationStatus("uploading");
+    setGenerationProgress(0);
+    setIsSavedToGallery(false);
+
+    // Simulate upload phase
+    setTimeout(() => {
+      setGenerationProgress(20);
+      setGenerationStatus("analyzing");
+
+      // Simulate analyzing phase
+      setTimeout(() => {
+        setGenerationProgress(40);
+        setGenerationStatus("generating");
+
+        // Simulate generation phase with progress updates
+        let progress = 40;
+        const progressInterval = setInterval(() => {
+          progress += 10;
+          setGenerationProgress(progress);
+
+          if (progress >= 80) {
+            clearInterval(progressInterval);
+            setGenerationStatus("finalizing");
+
+            // Simulate finalizing phase
+            setTimeout(() => {
+              setGenerationProgress(100);
+              setGenerationStatus("complete");
+              // Use a mock generated image
+              const mockResult = mockGalleryImages[0];
+              if (mockResult) {
+                setGeneratedImageUrl(mockResult.plushifiedUrl);
+              }
+            }, 1000);
+          }
+        }, 500);
+      }, 1500);
+    }, 1000);
+  };
+
+  // Handle generate another
+  const handleGenerateAnother = () => {
+    handleImageClear();
+  };
+
+  // Mock handlers
+  const handleDownload = () => {
+    if (generatedImageUrl) {
+      window.open(generatedImageUrl, "_blank");
+    }
+  };
+
+  const handleDownloadHD = () => {
+    if (generatedImageUrl) {
+      window.open(generatedImageUrl, "_blank");
+    }
+  };
+
+  const handleSaveToGallery = () => {
+    setIsSavedToGallery(true);
+  };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
+
+  // Auth loading state
   if (isPending && !isMockAuthenticated) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -23,6 +140,7 @@ export default function DashboardPage() {
     );
   }
 
+  // Not authenticated state
   if (!isAuthenticated) {
     return (
       <div className="container mx-auto px-4 py-12">
@@ -40,55 +158,88 @@ export default function DashboardPage() {
     );
   }
 
+  const isGenerating =
+    generationStatus !== "idle" &&
+    generationStatus !== "complete" &&
+    generationStatus !== "error";
+  const isComplete = generationStatus === "complete";
+  const canGenerate = !!selectedImage && !isGenerating;
+
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gradient">Dashboard</h1>
-          <p className="text-muted-foreground">
-            Welcome back, {user?.name || "User"}!
-          </p>
-        </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
-          <Sparkles className="h-4 w-4 text-primary" />
-          <span className="font-medium">{mockUser?.credits ?? 0} credits</span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 border border-border rounded-lg bg-card">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <ImageIcon className="h-6 w-6 text-primary" />
+    <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)]">
+      {/* Left Sidebar */}
+      <aside className="w-full lg:w-80 xl:w-96 border-b lg:border-b-0 lg:border-r border-border bg-card/50">
+        <ScrollArea className="h-full">
+          <div className="p-4 lg:p-6 space-y-6">
+            {/* Page Title */}
+            <div>
+              <h1 className="text-2xl font-bold text-gradient">Create Plushie</h1>
+              <p className="text-sm text-muted-foreground">
+                Transform your photos into adorable plushies
+              </p>
             </div>
-            <h2 className="text-xl font-semibold">Create Plushie</h2>
+
+            {/* Upload Panel */}
+            <UploadPanel
+              onImageSelect={handleImageSelect}
+              onImageClear={handleImageClear}
+              selectedImage={selectedImage}
+              previewUrl={previewUrl}
+              disabled={isGenerating}
+            />
+
+            <Separator />
+
+            {/* Style Options */}
+            <StyleOptions
+              selectedStyle={selectedStyle}
+              onStyleSelect={setSelectedStyle}
+              disabled={isGenerating}
+            />
+
+            <Separator />
+
+            {/* Generation Settings */}
+            <GenerationSettings
+              quality={quality}
+              onQualityChange={setQuality}
+              backgroundRemoval={backgroundRemoval}
+              onBackgroundRemovalChange={setBackgroundRemoval}
+              onGenerate={handleGenerate}
+              disabled={isGenerating}
+              isGenerating={isGenerating}
+              canGenerate={canGenerate}
+            />
           </div>
-          <p className="text-muted-foreground mb-4">
-            Upload a photo and transform it into an adorable plushie version
-          </p>
-          <p className="text-sm text-muted-foreground mb-4">
-            Full dashboard UI coming in Phase 6
-          </p>
-          <Button disabled>
-            Coming Soon
-          </Button>
+        </ScrollArea>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col">
+        <div className="flex-1 p-4 lg:p-8">
+          <PreviewPanel
+            uploadedImageUrl={previewUrl}
+            generatedImageUrl={generatedImageUrl}
+            generationStatus={generationStatus}
+            generationProgress={generationProgress}
+          />
         </div>
 
-        <div className="p-6 border border-border rounded-lg bg-card">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <Sparkles className="h-6 w-6 text-primary" />
-            </div>
-            <h2 className="text-xl font-semibold">Your Gallery</h2>
+        {/* Results Actions - Only show when complete */}
+        {isComplete && (
+          <div className="p-4 lg:p-6 border-t border-border">
+            <ResultsDisplay
+              onDownload={handleDownload}
+              onDownloadHD={handleDownloadHD}
+              onSaveToGallery={handleSaveToGallery}
+              onGenerateAnother={handleGenerateAnother}
+              onShare={handleShare}
+              hdCreditCost={1}
+              isSaved={isSavedToGallery}
+            />
           </div>
-          <p className="text-muted-foreground mb-4">
-            View and manage all your generated plushie images
-          </p>
-          <Button asChild variant="outline">
-            <Link href="/gallery">View Gallery</Link>
-          </Button>
-        </div>
-      </div>
+        )}
+      </main>
     </div>
   );
 }

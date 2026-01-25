@@ -8,9 +8,9 @@ import { APP_CONFIG } from "@/lib/constants";
 
 interface ImageUploadDropzoneProps {
   onImageSelect: (file: File) => void;
-  onImageClear?: () => void;
-  selectedImage?: File | null;
-  previewUrl?: string | null;
+  onImageClear?: (() => void) | undefined;
+  selectedImage?: File | null | undefined;
+  previewUrl?: string | null | undefined;
   className?: string;
   disabled?: boolean;
 }

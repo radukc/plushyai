@@ -352,66 +352,66 @@ Build the split-view image generation dashboard.
 ### Tasks
 
 #### 6.1 Dashboard Layout
-- [ ] Open `src/app/dashboard/page.tsx`
-- [ ] Remove existing boilerplate content
-- [ ] Create split layout container (flex with sidebar + main)
-- [ ] Left sidebar: 320px width on desktop
-- [ ] Right main area: remaining width
-- [ ] Add responsive behavior (stack on mobile)
-- [ ] Add page title in header area
+- [x] Open `src/app/dashboard/page.tsx`
+- [x] Remove existing boilerplate content
+- [x] Create split layout container (flex with sidebar + main)
+- [x] Left sidebar: 320px width on desktop
+- [x] Right main area: remaining width
+- [x] Add responsive behavior (stack on mobile)
+- [x] Add page title in header area
 
 #### 6.2 Upload Panel (Left Sidebar)
-- [ ] Create `src/components/dashboard/upload-panel.tsx`
-- [ ] Add `CreditBalance` component at top
-- [ ] Add `ImageUploadDropzone` component
-- [ ] Add section divider
+- [x] Create `src/components/dashboard/upload-panel.tsx`
+- [x] Add `CreditBalance` component at top
+- [x] Add `ImageUploadDropzone` component
+- [x] Add section divider
 
 #### 6.3 Style Options
-- [ ] Create `src/components/dashboard/style-options.tsx`
-- [ ] Add "Choose Style" heading
-- [ ] Create radio group or card selector for styles:
+- [x] Create `src/components/dashboard/style-options.tsx`
+- [x] Add "Choose Style" heading
+- [x] Create radio group or card selector for styles:
   - Classic Plushie
   - Kawaii
   - Realistic Plush
   - Cartoon
   - Chibi
-- [ ] Show style preview thumbnails
-- [ ] Highlight selected style
-- [ ] Style with proper spacing and borders
+- [x] Show style preview thumbnails
+- [x] Highlight selected style
+- [x] Style with proper spacing and borders
 
 #### 6.4 Generation Settings
-- [ ] Create `src/components/dashboard/generation-settings.tsx`
-- [ ] Add "Settings" heading
-- [ ] Add quality slider (Standard / High / Ultra)
-- [ ] Add output size selector (512px, 1024px, 2048px)
-- [ ] Add optional settings (background removal toggle)
-- [ ] Add "Generate" button (primary, full width)
-- [ ] Show credit cost for selected options
+- [x] Create `src/components/dashboard/generation-settings.tsx`
+- [x] Add "Settings" heading
+- [x] Add quality slider (Standard / High / Ultra)
+- [x] Add output size selector (512px, 1024px, 2048px)
+- [x] Add optional settings (background removal toggle)
+- [x] Add "Generate" button (primary, full width)
+- [x] Show credit cost for selected options
 
 #### 6.5 Preview Panel (Right Main Area)
-- [ ] Create `src/components/dashboard/preview-panel.tsx`
-- [ ] Add placeholder state when no image uploaded
-- [ ] Show uploaded image preview when available
-- [ ] Show `GenerationProgress` during mock generation
-- [ ] Show `ImageComparisonSlider` when complete
+- [x] Create `src/components/dashboard/preview-panel.tsx`
+- [x] Add placeholder state when no image uploaded
+- [x] Show uploaded image preview when available
+- [x] Show `GenerationProgress` during mock generation
+- [x] Show `ImageComparisonSlider` when complete
 
 #### 6.6 Results Display
-- [ ] Create `src/components/dashboard/results-display.tsx`
-- [ ] Add "Download" button (primary)
-- [ ] Add "Download HD" button (secondary, shows credit cost)
-- [ ] Add "Save to Gallery" button
-- [ ] Add "Generate Another" button
-- [ ] Add sharing options (copy link placeholder)
-- [ ] Style as action bar below preview
+- [x] Create `src/components/dashboard/results-display.tsx`
+- [x] Add "Download" button (primary)
+- [x] Add "Download HD" button (secondary, shows credit cost)
+- [x] Add "Save to Gallery" button
+- [x] Add "Generate Another" button
+- [x] Add sharing options (copy link placeholder)
+- [x] Style as action bar below preview
 
 #### 6.7 Assemble Dashboard
-- [ ] Integrate all dashboard components in page
-- [ ] Wire up mock state for upload → progress → result flow
-- [ ] Add useState for uploaded image, generation state, result
-- [ ] Simulate generation progress (setTimeout with intervals)
-- [ ] Show mock result after "generation" completes
-- [ ] Test full flow end-to-end
-- [ ] Verify responsive stacking on mobile
+- [x] Integrate all dashboard components in page
+- [x] Wire up mock state for upload → progress → result flow
+- [x] Add useState for uploaded image, generation state, result
+- [x] Simulate generation progress (setTimeout with intervals)
+- [x] Show mock result after "generation" completes
+- [x] Test full flow end-to-end
+- [x] Verify responsive stacking on mobile
 
 ---
 
