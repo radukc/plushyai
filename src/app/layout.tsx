@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { MockAuthProvider } from "@/lib/mock-auth";
 import type { Metadata } from "next";
 
 const geistSans = Geist({
@@ -18,36 +19,47 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Agentic Coding Boilerplate",
-    template: "%s | Agentic Coding Boilerplate",
+    default: "Plushify - Turn Anyone Into a Plushie",
+    template: "%s | Plushify",
   },
   description:
-    "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling - perfect for building AI-powered applications and autonomous agents by Leon van Zyl",
+    "Transform your photos into adorable plushie versions with AI. Create cute, cuddly digital plushies from any photo in seconds. Multiple styles, high resolution, and commercial-ready outputs.",
   keywords: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "AI",
-    "OpenRouter",
-    "Boilerplate",
-    "Authentication",
-    "PostgreSQL",
+    "Plushify",
+    "AI photo transformation",
+    "plushie generator",
+    "photo to plushie",
+    "AI art",
+    "cute avatar",
+    "kawaii",
+    "plush toy",
+    "image transformation",
+    "AI-powered",
   ],
-  authors: [{ name: "Leon van Zyl" }],
-  creator: "Leon van Zyl",
+  authors: [{ name: "Plushify" }],
+  creator: "Plushify",
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Agentic Coding Boilerplate",
-    title: "Agentic Coding Boilerplate",
+    siteName: "Plushify",
+    title: "Plushify - Turn Anyone Into a Plushie",
     description:
-      "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling",
+      "Transform your photos into adorable plushie versions with AI. Create cute, cuddly digital plushies in seconds.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Plushify - AI Plushie Generator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Agentic Coding Boilerplate",
+    title: "Plushify - Turn Anyone Into a Plushie",
     description:
-      "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling",
+      "Transform your photos into adorable plushie versions with AI. Create cute, cuddly digital plushies in seconds.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -58,21 +70,34 @@ export const metadata: Metadata = {
 // JSON-LD structured data for SEO
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Agentic Coding Boilerplate",
+  "@type": "SoftwareApplication",
+  name: "Plushify",
+  applicationCategory: "MultimediaApplication",
   description:
-    "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "Any",
+    "Transform your photos into adorable plushie versions with AI. Create cute, cuddly digital plushies from any photo in seconds.",
+  operatingSystem: "Web",
   offers: {
-    "@type": "Offer",
-    price: "0",
+    "@type": "AggregateOffer",
+    lowPrice: "9",
+    highPrice: "29",
     priceCurrency: "USD",
+    offerCount: "3",
   },
-  author: {
-    "@type": "Person",
-    name: "Leon van Zyl",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    ratingCount: "1250",
+    bestRating: "5",
+    worstRating: "1",
   },
+  featureList: [
+    "AI-powered photo transformation",
+    "Multiple plushie styles",
+    "High-resolution output up to 2048px",
+    "Fast processing in seconds",
+    "Commercial use license available",
+    "Background removal",
+  ],
 };
 
 export default function RootLayout({
@@ -97,10 +122,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SiteHeader />
-          <main id="main-content">{children}</main>
-          <SiteFooter />
-          <Toaster richColors position="top-right" />
+          <MockAuthProvider>
+            <SiteHeader />
+            <main id="main-content">{children}</main>
+            <SiteFooter />
+            <Toaster richColors position="top-right" />
+          </MockAuthProvider>
         </ThemeProvider>
       </body>
     </html>

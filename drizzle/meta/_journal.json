@@ -15,6 +15,20 @@
       "when": 1766719908715,
       "tag": "0001_last_warpath",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768581782324,
+      "tag": "0002_gorgeous_red_ghost",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1768582219811,
+      "tag": "0003_early_colonel_america",
+      "breakpoints": true
     }
   ]
 }
