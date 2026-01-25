@@ -297,36 +297,36 @@ Build the dedicated pricing page with tiers, comparison, and FAQ.
 ### Tasks
 
 #### 5.1 Create Pricing Page
-- [ ] Create `src/app/pricing/page.tsx`
-- [ ] Add page metadata (title, description)
-- [ ] Add page header with title and subtitle
-- [ ] Import pricing data from constants
+- [x] Create `src/app/pricing/page.tsx`
+- [x] Add page metadata (title, description)
+- [x] Add page header with title and subtitle
+- [x] Import pricing data from constants
 
 #### 5.2 Pricing Tiers Section
-- [ ] Display 3 `PricingCard` components in a row
-- [ ] Basic tier: $9, 30 credits, basic features
-- [ ] Pro tier: $19, 100 credits, all features, marked as Popular
-- [ ] Elite tier: $29, 200 credits, all features + priority
-- [ ] Arrange responsively (3 columns → 1 column on mobile)
-- [ ] Add "Most Value" or similar badge to Elite
+- [x] Display 3 `PricingCard` components in a row
+- [x] Basic tier: $9, 30 credits, basic features
+- [x] Pro tier: $19, 100 credits, all features, marked as Popular
+- [x] Elite tier: $29, 200 credits, all features + priority
+- [x] Arrange responsively (3 columns → 1 column on mobile)
+- [x] Add "Most Value" or similar badge to Elite
 
 #### 5.3 Feature Comparison Table
-- [ ] Add section heading ("Compare Plans")
-- [ ] Create table with features as rows, tiers as columns
-- [ ] Features to compare:
+- [x] Add section heading ("Compare Plans")
+- [x] Create table with features as rows, tiers as columns
+- [x] Features to compare:
   - Credits included
   - Image resolution
   - Plushie styles available
   - Processing speed
   - Commercial use license
   - Priority support
-- [ ] Use checkmarks and X marks for boolean features
-- [ ] Style table with alternating row colors
-- [ ] Make table horizontally scrollable on mobile
+- [x] Use checkmarks and X marks for boolean features
+- [x] Style table with alternating row colors
+- [x] Make table horizontally scrollable on mobile
 
 #### 5.4 FAQ Section
-- [ ] Add section heading ("Frequently Asked Questions")
-- [ ] Create accordion with 8-10 FAQ items:
+- [x] Add section heading ("Frequently Asked Questions")
+- [x] Create accordion with 8-10 FAQ items:
   - What are credits?
   - Do credits expire?
   - Can I upgrade my plan?
@@ -335,13 +335,13 @@ Build the dedicated pricing page with tiers, comparison, and FAQ.
   - What's your refund policy?
   - Can I use images commercially?
   - How long does generation take?
-- [ ] Use shadcn Accordion component
-- [ ] Style with proper spacing
+- [x] Use shadcn Accordion component
+- [x] Style with proper spacing
 
 #### 5.5 Final CTA
-- [ ] Add CTA section at bottom
-- [ ] "Start Creating Today" headline
-- [ ] Button linking to sign-up or dashboard
+- [x] Add CTA section at bottom
+- [x] "Start Creating Today" headline
+- [x] Button linking to sign-up or dashboard
 
 ---
 
