@@ -422,65 +422,65 @@ Build the user's image gallery with grid and modals.
 ### Tasks
 
 #### 7.1 Gallery Page Structure
-- [ ] Create `src/app/gallery/page.tsx`
-- [ ] Add page metadata
-- [ ] Add page header with title
-- [ ] Add sort/filter controls (placeholder functionality)
-- [ ] Import mock gallery data
+- [x] Create `src/app/gallery/page.tsx`
+- [x] Add page metadata
+- [x] Add page header with title
+- [x] Add sort/filter controls (placeholder functionality)
+- [x] Import mock gallery data
 
 #### 7.2 Empty State Component
-- [ ] Create `src/components/gallery/empty-state.tsx`
-- [ ] Add illustration or icon
-- [ ] Add "No plushies yet" message
-- [ ] Add "Create your first plushie" CTA button
-- [ ] Style with centered layout and muted colors
+- [x] Create `src/components/gallery/empty-state.tsx`
+- [x] Add illustration or icon
+- [x] Add "No plushies yet" message
+- [x] Add "Create your first plushie" CTA button
+- [x] Style with centered layout and muted colors
 
 #### 7.3 Image Card Component
-- [ ] Create `src/components/gallery/image-card.tsx`
-- [ ] Accept image object prop
-- [ ] Display thumbnail using `AspectRatio` (1:1)
-- [ ] Add date badge in corner
-- [ ] Add style badge
-- [ ] Create hover overlay with actions:
+- [x] Create `src/components/gallery/image-card.tsx`
+- [x] Accept image object prop
+- [x] Display thumbnail using `AspectRatio` (1:1)
+- [x] Add date badge in corner
+- [x] Add style badge
+- [x] Create hover overlay with actions:
   - View (eye icon)
   - Download (download icon)
   - Delete (trash icon)
-- [ ] Add smooth hover transition
-- [ ] Handle click to open modal
+- [x] Add smooth hover transition
+- [x] Handle click to open modal
 
 #### 7.4 Comparison Modal
-- [ ] Create `src/components/gallery/comparison-modal.tsx`
-- [ ] Use shadcn Dialog component
-- [ ] Display `ImageComparisonSlider` with full-size images
-- [ ] Add image metadata (date, style used)
-- [ ] Add action buttons:
+- [x] Create `src/components/gallery/comparison-modal.tsx`
+- [x] Use shadcn Dialog component
+- [x] Display `ImageComparisonSlider` with full-size images
+- [x] Add image metadata (date, style used)
+- [x] Add action buttons:
   - Download Original
   - Download Plushified
   - Delete
-- [ ] Add close button
-- [ ] Add keyboard support (Escape to close)
+- [x] Add close button
+- [x] Add keyboard support (Escape to close)
 
 #### 7.5 Image Grid Component
-- [ ] Create `src/components/gallery/image-grid.tsx`
-- [ ] Accept images array prop
-- [ ] Display grid of `ImageCard` components
-- [ ] Responsive: 4 columns → 3 → 2 → 1
-- [ ] Add gap between cards
-- [ ] Handle empty state conditional
+- [x] Create `src/components/gallery/image-grid.tsx`
+- [x] Accept images array prop
+- [x] Display grid of `ImageCard` components
+- [x] Responsive: 4 columns → 3 → 2 → 1
+- [x] Add gap between cards
+- [x] Handle empty state conditional
 
 #### 7.6 Assemble Gallery Page
-- [ ] Integrate all gallery components
-- [ ] Add state for selected image (for modal)
-- [ ] Add state for mock deletion
-- [ ] Wire up modal open/close
-- [ ] Wire up delete functionality (remove from local state)
-- [ ] Show empty state when all deleted
-- [ ] Test full interaction flow
+- [x] Integrate all gallery components
+- [x] Add state for selected image (for modal)
+- [x] Add state for mock deletion
+- [x] Wire up modal open/close
+- [x] Wire up delete functionality (remove from local state)
+- [x] Show empty state when all deleted
+- [x] Test full interaction flow
 
 #### 7.7 Gallery Loading State
-- [ ] Create `src/app/gallery/loading.tsx`
-- [ ] Display skeleton grid matching gallery layout
-- [ ] Use shadcn Skeleton component
+- [x] Create `src/app/gallery/loading.tsx`
+- [x] Display skeleton grid matching gallery layout
+- [x] Use shadcn Skeleton component
 
 ---
 
