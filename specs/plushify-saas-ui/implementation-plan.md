@@ -657,8 +657,8 @@ Complete final updates and verify everything works.
 ### Tasks
 
 #### 10.1 Update Sitemap
-- [ ] Open `src/app/sitemap.ts`
-- [ ] Add all new public routes:
+- [x] Open `src/app/sitemap.ts`
+- [x] Add all new public routes:
   - /pricing
   - /docs
   - /docs/getting-started
@@ -672,61 +672,61 @@ Complete final updates and verify everything works.
   - /gdpr
   - /ccpa
   - /acceptable-use
-- [ ] Set appropriate priorities and changefreq
+- [x] Set appropriate priorities and changefreq
 
 #### 10.2 Update Robots.txt
-- [ ] Open `src/app/robots.ts`
-- [ ] Disallow /dashboard
-- [ ] Disallow /gallery
-- [ ] Allow all public pages
-- [ ] Add sitemap reference
+- [x] Open `src/app/robots.ts`
+- [x] Disallow /dashboard
+- [x] Disallow /gallery
+- [x] Allow all public pages
+- [x] Add sitemap reference
 
 #### 10.3 Verify All Routes
-- [ ] Test landing page loads correctly
-- [ ] Test pricing page loads correctly
-- [ ] Test dashboard page loads correctly
-- [ ] Test gallery page loads correctly
-- [ ] Test all documentation pages load
-- [ ] Test all legal pages load
-- [ ] Test 404 page still works
+- [x] Test landing page loads correctly
+- [x] Test pricing page loads correctly
+- [x] Test dashboard page loads correctly
+- [x] Test gallery page loads correctly
+- [x] Test all documentation pages load
+- [x] Test all legal pages load
+- [x] Test 404 page still works
 
 #### 10.4 Verify Responsive Design
-- [ ] Test all pages at 375px (mobile)
-- [ ] Test all pages at 768px (tablet)
-- [ ] Test all pages at 1024px (small desktop)
-- [ ] Test all pages at 1440px (large desktop)
-- [ ] Fix any layout issues found
+- [x] Test all pages at 375px (mobile)
+- [x] Test all pages at 768px (tablet)
+- [x] Test all pages at 1024px (small desktop)
+- [x] Test all pages at 1440px (large desktop)
+- [x] Fix any layout issues found
 
 #### 10.5 Verify Dark Mode
-- [ ] Toggle dark mode on landing page
-- [ ] Toggle dark mode on pricing page
-- [ ] Toggle dark mode on dashboard
-- [ ] Toggle dark mode on gallery
-- [ ] Toggle dark mode on docs pages
-- [ ] Toggle dark mode on legal pages
-- [ ] Fix any contrast or visibility issues
+- [x] Toggle dark mode on landing page
+- [x] Toggle dark mode on pricing page
+- [x] Toggle dark mode on dashboard
+- [x] Toggle dark mode on gallery
+- [x] Toggle dark mode on docs pages
+- [x] Toggle dark mode on legal pages
+- [x] Fix any contrast or visibility issues
 
 #### 10.6 Verify Navigation
-- [ ] Test all header links work
-- [ ] Test all footer links work
-- [ ] Test mobile menu opens and closes
-- [ ] Test mobile menu links work
-- [ ] Test back navigation on legal pages
-- [ ] Test docs sidebar navigation
+- [x] Test all header links work
+- [x] Test all footer links work
+- [x] Test mobile menu opens and closes
+- [x] Test mobile menu links work
+- [x] Test back navigation on legal pages
+- [x] Test docs sidebar navigation
 
 #### 10.7 Code Quality
-- [ ] Run `pnpm lint` - fix all errors
-- [ ] Run `pnpm typecheck` - fix all errors
-- [ ] Remove any console.log statements
-- [ ] Remove any TODO comments (or document them)
-- [ ] Verify no unused imports
+- [x] Run `pnpm lint` - fix all errors
+- [x] Run `pnpm typecheck` - fix all errors
+- [x] Remove any console.log statements
+- [x] Remove any TODO comments (or document them)
+- [x] Verify no unused imports
 
 #### 10.8 Final Verification
-- [ ] Full user flow: Landing → Pricing → Dashboard → Generate (mock) → Gallery
-- [ ] Verify mock user appears in header
-- [ ] Verify credit balance shows correctly
-- [ ] Verify gallery shows mock images
-- [ ] Take screenshots of key pages for documentation
+- [x] Full user flow: Landing → Pricing → Dashboard → Generate (mock) → Gallery
+- [x] Verify mock user appears in header
+- [x] Verify credit balance shows correctly
+- [x] Verify gallery shows mock images
+- [x] Take screenshots of key pages for documentation
 
 ---
 
