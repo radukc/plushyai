@@ -279,21 +279,21 @@
     animation: gradient-shift 3s ease infinite;
   }
 
-  /* Gradient text utility */
+  /* Gradient text utility - uses amber theme */
   .text-gradient {
-    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    background: linear-gradient(135deg, var(--amber-gradient-start), var(--amber-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Gradient backgrounds */
+  /* Gradient backgrounds - uses amber theme */
   .bg-gradient-plushify {
-    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    background: linear-gradient(135deg, var(--amber-gradient-start), var(--amber-gradient-end));
   }
 
   .bg-gradient-accent {
-    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-accent));
+    background: linear-gradient(135deg, var(--amber-gradient-start), var(--amber-500));
   }
 
   /* Soft shadow for cards */
