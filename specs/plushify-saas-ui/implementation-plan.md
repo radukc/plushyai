@@ -491,65 +491,65 @@ Build the documentation section with sidebar navigation.
 ### Tasks
 
 #### 8.1 Docs Layout
-- [ ] Create `src/app/docs/layout.tsx`
-- [ ] Create two-column layout (sidebar + content)
-- [ ] Sidebar: 240px width on desktop
-- [ ] Content: remaining width with max-width
-- [ ] Make sidebar collapsible on mobile
+- [x] Create `src/app/docs/layout.tsx`
+- [x] Create two-column layout (sidebar + content)
+- [x] Sidebar: 240px width on desktop
+- [x] Content: remaining width with max-width
+- [x] Make sidebar collapsible on mobile
 
 #### 8.2 Sidebar Navigation
-- [ ] Create `src/components/docs/sidebar-nav.tsx`
-- [ ] Add navigation links:
+- [x] Create `src/components/docs/sidebar-nav.tsx`
+- [x] Add navigation links:
   - Getting Started
   - How to Use
   - API Reference
   - FAQ
-- [ ] Highlight active page
-- [ ] Add icons for each section
-- [ ] Style with proper spacing and hover effects
+- [x] Highlight active page
+- [x] Add icons for each section
+- [x] Style with proper spacing and hover effects
 
 #### 8.3 Doc Content Wrapper
-- [ ] Create `src/components/docs/doc-content.tsx`
-- [ ] Add consistent padding and max-width
-- [ ] Add typography styles for headings, paragraphs, lists
-- [ ] Add "On this page" table of contents (optional)
+- [x] Create `src/components/docs/doc-content.tsx`
+- [x] Add consistent padding and max-width
+- [x] Add typography styles for headings, paragraphs, lists
+- [x] Add "On this page" table of contents (optional)
 
 #### 8.4 Getting Started Page
-- [ ] Create `src/app/docs/page.tsx` (index redirects or shows getting started)
-- [ ] Create `src/app/docs/getting-started/page.tsx`
-- [ ] Add page title and introduction
-- [ ] Add "Quick Start" section with 3 steps
-- [ ] Add "Create Your Account" section
-- [ ] Add "Your First Plushie" section
-- [ ] Add "Next Steps" links
+- [x] Create `src/app/docs/page.tsx` (index redirects or shows getting started)
+- [x] Create `src/app/docs/getting-started/page.tsx`
+- [x] Add page title and introduction
+- [x] Add "Quick Start" section with 3 steps
+- [x] Add "Create Your Account" section
+- [x] Add "Your First Plushie" section
+- [x] Add "Next Steps" links
 
 #### 8.5 How to Use Page
-- [ ] Create `src/app/docs/how-to-use/page.tsx`
-- [ ] Add detailed guide sections:
+- [x] Create `src/app/docs/how-to-use/page.tsx`
+- [x] Add detailed guide sections:
   - Uploading Images
   - Choosing a Style
   - Adjusting Settings
   - Downloading Results
   - Managing Your Gallery
-- [ ] Add tips and best practices
-- [ ] Add troubleshooting common issues
+- [x] Add tips and best practices
+- [x] Add troubleshooting common issues
 
 #### 8.6 API Reference Page
-- [ ] Create `src/app/docs/api/page.tsx`
-- [ ] Add "Coming Soon" or placeholder message
-- [ ] Add brief overview of planned API features
-- [ ] Add email signup for API access notifications (placeholder)
+- [x] Create `src/app/docs/api/page.tsx`
+- [x] Add "Coming Soon" or placeholder message
+- [x] Add brief overview of planned API features
+- [x] Add email signup for API access notifications (placeholder)
 
 #### 8.7 FAQ Page
-- [ ] Create `src/app/docs/faq/page.tsx`
-- [ ] Organize FAQs by category:
+- [x] Create `src/app/docs/faq/page.tsx`
+- [x] Organize FAQs by category:
   - General
   - Billing
   - Technical
   - Privacy
-- [ ] Use Accordion for each category
-- [ ] Add 5-8 questions per category
-- [ ] Add "Still have questions? Contact us" CTA
+- [x] Use Accordion for each category
+- [x] Add 5-8 questions per category
+- [x] Add "Still have questions? Contact us" CTA
 
 ---
 
