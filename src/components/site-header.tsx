@@ -51,12 +51,23 @@ export function SiteHeader() {
               aria-label="Plushify - Go to homepage"
             >
               <div
-                className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg shadow-pink-500/20"
+                className="flex items-center justify-center w-9 h-9 rounded-xl shadow-lg shadow-amber-500/20"
+                style={{
+                  background: `linear-gradient(135deg, var(--amber-gradient-start), var(--amber-gradient-end))`
+                }}
                 aria-hidden="true"
               >
                 <Heart className="h-5 w-5 text-white fill-white" />
               </div>
-              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-extrabold tracking-tight">
+              <span
+                className="font-extrabold tracking-tight"
+                style={{
+                  background: `linear-gradient(90deg, var(--amber-gradient-start), var(--amber-600), var(--amber-gradient-start))`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
                 Plushify
               </span>
             </Link>
@@ -100,10 +111,23 @@ export function SiteHeader() {
               <SheetContent side="right" className="w-[300px] sm:w-[350px]">
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-purple-600">
+                    <div
+                      className="flex items-center justify-center w-8 h-8 rounded-lg"
+                      style={{
+                        background: `linear-gradient(135deg, var(--amber-gradient-start), var(--amber-gradient-end))`
+                      }}
+                    >
                       <Heart className="h-4 w-4 text-white fill-white" />
                     </div>
-                    <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent font-bold">
+                    <span
+                      className="font-bold"
+                      style={{
+                        background: `linear-gradient(90deg, var(--amber-gradient-start), var(--amber-gradient-end))`,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text'
+                      }}
+                    >
                       Plushify
                     </span>
                   </SheetTitle>

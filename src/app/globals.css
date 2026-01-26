@@ -20,6 +20,17 @@
   --border: oklch(0.9276 0.0058 264.5313);
   --input: oklch(0.9276 0.0058 264.5313);
   --ring: oklch(0.7686 0.1647 70.0804);
+  /* Amber theme colors for logo */
+  --amber-50: oklch(0.98 0.02 85);
+  --amber-100: oklch(0.94 0.06 80);
+  --amber-200: oklch(0.88 0.12 75);
+  --amber-300: oklch(0.82 0.16 70);
+  --amber-400: oklch(0.76 0.18 65);
+  --amber-500: oklch(0.70 0.18 60);
+  --amber-600: oklch(0.60 0.17 55);
+  --amber-700: oklch(0.50 0.15 50);
+  --amber-gradient-start: oklch(0.80 0.18 70);
+  --amber-gradient-end: oklch(0.65 0.20 55);
   --chart-1: oklch(0.7686 0.1647 70.0804);
   --chart-2: oklch(0.6658 0.1574 58.3183);
   --chart-3: oklch(0.5553 0.1455 48.9975);
@@ -75,6 +86,17 @@
   --border: oklch(0.3715 0 0);
   --input: oklch(0.3715 0 0);
   --ring: oklch(0.7686 0.1647 70.0804);
+  /* Amber theme colors for logo - dark mode */
+  --amber-50: oklch(0.98 0.02 85);
+  --amber-100: oklch(0.94 0.06 80);
+  --amber-200: oklch(0.88 0.12 75);
+  --amber-300: oklch(0.82 0.16 70);
+  --amber-400: oklch(0.78 0.18 68);
+  --amber-500: oklch(0.74 0.19 65);
+  --amber-600: oklch(0.68 0.18 62);
+  --amber-700: oklch(0.60 0.16 58);
+  --amber-gradient-start: oklch(0.82 0.19 72);
+  --amber-gradient-end: oklch(0.68 0.20 58);
   --chart-1: oklch(0.8369 0.1644 84.4286);
   --chart-2: oklch(0.6658 0.1574 58.3183);
   --chart-3: oklch(0.4732 0.1247 46.2007);

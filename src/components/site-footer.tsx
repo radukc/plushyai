@@ -29,10 +29,23 @@ export function SiteFooter() {
             href="/"
             className="flex items-center gap-2 mb-3 hover:opacity-80 transition-opacity"
           >
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 shadow-lg shadow-pink-500/20">
+            <div
+              className="flex items-center justify-center w-10 h-10 rounded-xl shadow-lg shadow-amber-500/20"
+              style={{
+                background: `linear-gradient(135deg, var(--amber-gradient-start), var(--amber-gradient-end))`
+              }}
+            >
               <Heart className="h-5 w-5 text-white fill-white" />
             </div>
-            <span className="text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span
+              className="text-2xl font-extrabold"
+              style={{
+                background: `linear-gradient(90deg, var(--amber-gradient-start), var(--amber-600), var(--amber-gradient-start))`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
               {APP_CONFIG.name}
             </span>
           </Link>
