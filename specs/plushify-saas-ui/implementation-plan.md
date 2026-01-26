@@ -560,17 +560,17 @@ Create all required legal documentation pages.
 ### Tasks
 
 #### 9.1 Legal Layout
-- [ ] Create `src/app/(legal)/layout.tsx`
-- [ ] Add consistent layout for all legal pages
-- [ ] Add page title area
-- [ ] Add "Last Updated" date display
-- [ ] Add back navigation link
-- [ ] Add table of contents sidebar (optional)
-- [ ] Style with readable typography
+- [x] Create `src/app/(legal)/layout.tsx`
+- [x] Add consistent layout for all legal pages
+- [x] Add page title area
+- [x] Add "Last Updated" date display
+- [x] Add back navigation link
+- [x] Add table of contents sidebar (optional)
+- [x] Style with readable typography
 
 #### 9.2 Privacy Policy
-- [ ] Create `src/app/(legal)/privacy/page.tsx`
-- [ ] Add standard privacy policy sections:
+- [x] Create `src/app/(legal)/privacy/page.tsx`
+- [x] Add standard privacy policy sections:
   - Information We Collect
   - How We Use Your Information
   - Information Sharing
@@ -580,11 +580,11 @@ Create all required legal documentation pages.
   - Children's Privacy
   - Changes to Policy
   - Contact Us
-- [ ] Use placeholder company details
+- [x] Use placeholder company details
 
 #### 9.3 Terms of Service
-- [ ] Create `src/app/(legal)/terms/page.tsx`
-- [ ] Add standard ToS sections:
+- [x] Create `src/app/(legal)/terms/page.tsx`
+- [x] Add standard ToS sections:
   - Acceptance of Terms
   - Description of Service
   - User Accounts
@@ -598,8 +598,8 @@ Create all required legal documentation pages.
   - Contact
 
 #### 9.4 Cookie Policy
-- [ ] Create `src/app/(legal)/cookies/page.tsx`
-- [ ] Add cookie policy sections:
+- [x] Create `src/app/(legal)/cookies/page.tsx`
+- [x] Add cookie policy sections:
   - What Are Cookies
   - Types of Cookies We Use
   - How to Control Cookies
@@ -607,8 +607,8 @@ Create all required legal documentation pages.
   - Updates to Policy
 
 #### 9.5 Refund Policy
-- [ ] Create `src/app/(legal)/refund/page.tsx`
-- [ ] Add refund policy sections:
+- [x] Create `src/app/(legal)/refund/page.tsx`
+- [x] Add refund policy sections:
   - Overview
   - Credit Purchases
   - Refund Eligibility
@@ -618,8 +618,8 @@ Create all required legal documentation pages.
   - Contact
 
 #### 9.6 GDPR Information
-- [ ] Create `src/app/(legal)/gdpr/page.tsx`
-- [ ] Add GDPR-specific sections:
+- [x] Create `src/app/(legal)/gdpr/page.tsx`
+- [x] Add GDPR-specific sections:
   - Your Rights Under GDPR
   - Data Controller Information
   - Legal Basis for Processing
@@ -629,8 +629,8 @@ Create all required legal documentation pages.
   - Complaints
 
 #### 9.7 CCPA Notice
-- [ ] Create `src/app/(legal)/ccpa/page.tsx`
-- [ ] Add CCPA-specific sections:
+- [x] Create `src/app/(legal)/ccpa/page.tsx`
+- [x] Add CCPA-specific sections:
   - California Residents' Rights
   - Categories of Information Collected
   - How We Use Information
@@ -639,8 +639,8 @@ Create all required legal documentation pages.
   - Non-Discrimination
 
 #### 9.8 Acceptable Use Policy
-- [ ] Create `src/app/(legal)/acceptable-use/page.tsx`
-- [ ] Add AUP sections:
+- [x] Create `src/app/(legal)/acceptable-use/page.tsx`
+- [x] Add AUP sections:
   - Purpose
   - Prohibited Content
   - Prohibited Activities
