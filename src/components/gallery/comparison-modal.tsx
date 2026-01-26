@@ -1,7 +1,6 @@
 "use client";
 
 import { Download, Trash2, Calendar, Palette, Image as ImageIcon } from "lucide-react";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,8 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
 import { ImageComparisonSlider } from "@/components/ui/image-comparison-slider";
+import { Separator } from "@/components/ui/separator";
 import { formatDate, type GalleryImage } from "@/lib/mock-data";
 
 interface ComparisonModalProps {

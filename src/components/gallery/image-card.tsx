@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import { Eye, Download, Trash2 } from "lucide-react";
-
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { formatDate, type GalleryImage } from "@/lib/mock-data";
+import { cn } from "@/lib/utils";
 
 interface ImageCardProps {
   image: GalleryImage;

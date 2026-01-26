@@ -2,27 +2,21 @@
 
 import * as React from "react";
 import { Lock } from "lucide-react";
-
 import { UserProfile } from "@/components/auth/user-profile";
-import { UploadPanel } from "@/components/dashboard/upload-panel";
-import { StyleOptions } from "@/components/dashboard/style-options";
 import { GenerationSettings } from "@/components/dashboard/generation-settings";
 import { PreviewPanel } from "@/components/dashboard/preview-panel";
 import { ResultsDisplay } from "@/components/dashboard/results-display";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSession } from "@/lib/auth-client";
-import { useMockAuth } from "@/lib/mock-auth";
-import { mockGalleryImages } from "@/lib/mock-data";
-import { PLUSHIE_STYLES } from "@/lib/constants";
+import { StyleOptions } from "@/components/dashboard/style-options";
+import { UploadPanel } from "@/components/dashboard/upload-panel";
 import type { GenerationStatus } from "@/components/generation-progress";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { PLUSHIE_STYLES } from "@/lib/constants";
+import { useAuth } from "@/lib/hooks/use-auth";
+import { mockGalleryImages } from "@/lib/mock-data";
 
 export default function DashboardPage() {
-  const { data: session, isPending } = useSession();
-  const { isAuthenticated: isMockAuthenticated } = useMockAuth();
-
-  // Use mock auth for UI development
-  const isAuthenticated = isMockAuthenticated || !!session;
+  const { isAuthenticated, isPending, isMockAuthenticated } = useAuth();
 
   // State for the generation flow
   const [selectedImage, setSelectedImage] = React.useState<File | null>(null);

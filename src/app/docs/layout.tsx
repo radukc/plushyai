@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "lucide-react";
-
+import { SidebarNav } from "@/components/docs/sidebar-nav";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,7 +11,6 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import { SidebarNav } from "@/components/docs/sidebar-nav";
 
 export default function DocsLayout({
   children,

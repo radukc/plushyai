@@ -1,15 +1,14 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { Code, Rocket, Bell, ArrowRight } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DocContent,
   DocHeader,
   DocSection,
   DocTip,
 } from "@/components/docs/doc-content";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "API Reference - Plushify Docs",

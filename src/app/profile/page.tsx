@@ -1,22 +1,20 @@
 "use client";
 
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   User,
   Mail,
   Calendar,
   CreditCard,
-  Image,
+  ImageIcon,
   Settings,
   Shield,
   Bell,
   ChevronRight,
 } from "lucide-react";
-
-import { useSession } from "@/lib/auth-client";
-import { useMockAuth } from "@/lib/mock-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,11 +24,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/lib/hooks/use-auth";
 
 export default function ProfilePage() {
-  const { data: session, isPending } = useSession();
-  const { user: mockUser } = useMockAuth();
+  const { user, mockUser, isPending } = useAuth();
 
   // Show loading state
   if (isPending) {
@@ -45,9 +42,6 @@ export default function ProfilePage() {
       </main>
     );
   }
-
-  // Use real session if available, otherwise use mock user for demo
-  const user = session?.user || mockUser;
 
   if (!user) {
     redirect("/login");
@@ -142,7 +136,7 @@ export default function ProfilePage() {
                     {mockUser?.plan ? mockUser.plan.charAt(0).toUpperCase() + mockUser.plan.slice(1) : "Free"} Plan
                   </Badge>
                   <Badge variant="outline" className="gap-1">
-                    <Image className="h-3 w-3" />
+                    <ImageIcon className="h-3 w-3" />
                     {mockUser?.credits || 0} Credits
                   </Badge>
                   <Badge variant="outline" className="gap-1">

@@ -224,6 +224,9 @@ export const APP_CONFIG = {
   generationTimeout: 60000, // 60 seconds
 };
 
+// Legal document metadata - update this once when legal docs change
+export const LEGAL_LAST_UPDATED = "January 26, 2026";
+
 // Credit costs for different operations
 export const CREDIT_COSTS = {
   standardGeneration: 1,

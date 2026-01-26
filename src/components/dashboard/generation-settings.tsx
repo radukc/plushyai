@@ -1,7 +1,6 @@
 "use client";
 
 import { Sparkles, Coins } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,8 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
 import { GENERATION_QUALITY_OPTIONS, CREDIT_COSTS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface GenerationSettingsProps {
   quality: string;

@@ -1,8 +1,5 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { ArrowRight, Sparkles } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import {
   DocContent,
   DocHeader,
@@ -10,6 +7,8 @@ import {
   DocStep,
   DocTip,
 } from "@/components/docs/doc-content";
+import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Getting Started - Plushify Docs",

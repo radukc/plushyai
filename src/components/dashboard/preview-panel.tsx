@@ -1,7 +1,6 @@
 "use client";
 
 import { ImageIcon } from "lucide-react";
-
 import { GenerationProgress, type GenerationStatus } from "@/components/generation-progress";
 import { ImageComparisonSlider } from "@/components/ui/image-comparison-slider";
 import { cn } from "@/lib/utils";

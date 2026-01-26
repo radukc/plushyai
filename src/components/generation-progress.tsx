@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { Loader2, Check, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 export type GenerationStatus =
   | "idle"

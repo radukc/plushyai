@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import {
   Upload,
   Palette,
@@ -9,13 +8,13 @@ import {
   Lightbulb,
   AlertTriangle,
 } from "lucide-react";
-
 import {
   DocContent,
   DocHeader,
   DocSection,
   DocTip,
 } from "@/components/docs/doc-content";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "How to Use - Plushify Docs",

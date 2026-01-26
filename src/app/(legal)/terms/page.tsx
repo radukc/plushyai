@@ -1,5 +1,6 @@
-import { Metadata } from "next";
 import Link from "next/link";
+import { Metadata } from "next";
+import { LEGAL_LAST_UPDATED } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Terms of Service - Plushify",
@@ -13,7 +14,7 @@ export default function TermsOfServicePage() {
       <header className="mb-8 pb-8 border-b">
         <h1 className="font-bold tracking-tight mb-2">Terms of Service</h1>
         <p className="text-sm text-muted-foreground">
-          Last Updated: January 26, 2026
+          Last Updated: {LEGAL_LAST_UPDATED}
         </p>
       </header>
 

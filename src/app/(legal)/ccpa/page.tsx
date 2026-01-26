@@ -1,5 +1,6 @@
-import { Metadata } from "next";
 import Link from "next/link";
+import { Metadata } from "next";
+import { LEGAL_LAST_UPDATED } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "CCPA Notice - Plushify",
@@ -15,7 +16,7 @@ export default function CCPAPage() {
           California Privacy Notice (CCPA)
         </h1>
         <p className="text-sm text-muted-foreground">
-          Last Updated: January 26, 2026
+          Last Updated: {LEGAL_LAST_UPDATED}
         </p>
       </header>
 

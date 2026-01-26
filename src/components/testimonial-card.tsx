@@ -1,9 +1,9 @@
 "use client";
 
 import { Star, Quote } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import type { Testimonial } from "@/lib/mock-data";
+import { cn } from "@/lib/utils";
 
 interface TestimonialCardProps {
   testimonial: Testimonial;

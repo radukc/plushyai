@@ -1,9 +1,9 @@
 "use client";
 
-import { ImageCard } from "./image-card";
-import { EmptyState } from "./empty-state";
-import { cn } from "@/lib/utils";
 import type { GalleryImage } from "@/lib/mock-data";
+import { cn } from "@/lib/utils";
+import { EmptyState } from "./empty-state";
+import { ImageCard } from "./image-card";
 
 interface ImageGridProps {
   images: GalleryImage[];

@@ -3,10 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { Lock, SlidersHorizontal, ArrowUpDown, Plus } from "lucide-react";
-
 import { UserProfile } from "@/components/auth/user-profile";
-import { ImageGrid } from "@/components/gallery/image-grid";
 import { ComparisonModal } from "@/components/gallery/comparison-modal";
+import { ImageGrid } from "@/components/gallery/image-grid";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -15,16 +14,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSession } from "@/lib/auth-client";
-import { useMockAuth } from "@/lib/mock-auth";
+import { useAuth } from "@/lib/hooks/use-auth";
 import { mockGalleryImages, type GalleryImage } from "@/lib/mock-data";
 
 export default function GalleryPage() {
-  const { data: session, isPending } = useSession();
-  const { isAuthenticated: isMockAuthenticated } = useMockAuth();
-
-  // Use mock auth for UI development
-  const isAuthenticated = isMockAuthenticated || !!session;
+  const { isAuthenticated, isPending, isMockAuthenticated } = useAuth();
 
   // State for gallery
   const [images, setImages] = React.useState<GalleryImage[]>(mockGalleryImages);

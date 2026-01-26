@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { APP_CONFIG } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 interface ImageUploadDropzoneProps {
   onImageSelect: (file: File) => void;

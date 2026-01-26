@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { Check, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { PricingTier } from "@/lib/mock-data";
+import { cn } from "@/lib/utils";
 
 interface PricingCardProps {
   tier: PricingTier;
