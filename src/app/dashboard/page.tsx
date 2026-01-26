@@ -14,6 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSession } from "@/lib/auth-client";
 import { useMockAuth } from "@/lib/mock-auth";
 import { mockGalleryImages } from "@/lib/mock-data";
+import { PLUSHIE_STYLES } from "@/lib/constants";
 import type { GenerationStatus } from "@/components/generation-progress";
 
 export default function DashboardPage() {
@@ -93,8 +94,20 @@ export default function DashboardPage() {
             setTimeout(() => {
               setGenerationProgress(100);
               setGenerationStatus("complete");
-              // Use a mock generated image
-              const mockResult = mockGalleryImages[0];
+              // Find the style name from the selected style ID
+              const selectedStyleConfig = PLUSHIE_STYLES.find(
+                (s) => s.id === selectedStyle
+              );
+              const styleName = selectedStyleConfig?.name || "Classic Plushie";
+              // Filter mock images by the selected style
+              const matchingImages = mockGalleryImages.filter(
+                (img) => img.style === styleName
+              );
+              // Use a matching image, or fall back to first image
+              const mockResult =
+                matchingImages[
+                  Math.floor(Math.random() * matchingImages.length)
+                ] || mockGalleryImages[0];
               if (mockResult) {
                 setGeneratedImageUrl(mockResult.plushifiedUrl);
               }
