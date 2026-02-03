@@ -11,12 +11,18 @@ import { UploadPanel } from "@/components/dashboard/upload-panel";
 import type { GenerationStatus } from "@/components/generation-progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { useSession } from "@/lib/auth-client";
 import { PLUSHIE_STYLES } from "@/lib/constants";
-import { useAuth } from "@/lib/hooks/use-auth";
 import { mockGalleryImages } from "@/lib/mock-data";
 
 export default function DashboardPage() {
-  const { isAuthenticated, isPending, isMockAuthenticated } = useAuth();
+  const { data: session, isPending } = useSession();
+  const isAuthenticated = !!session;
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // State for the generation flow
   const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
@@ -138,8 +144,8 @@ export default function DashboardPage() {
     navigator.clipboard.writeText(window.location.href);
   };
 
-  // Auth loading state
-  if (isPending && !isMockAuthenticated) {
+  // Auth loading state - use isMounted to avoid hydration mismatch
+  if (!isMounted || isPending) {
     return (
       <div className="flex justify-center items-center h-screen">
         Loading...

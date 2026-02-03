@@ -24,10 +24,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/lib/hooks/use-auth";
+import { useSession } from "@/lib/auth-client";
+import { useSubscription } from "@/lib/hooks/use-subscription";
 
 export default function ProfilePage() {
-  const { user, mockUser, isPending } = useAuth();
+  const { data: session, isPending } = useSession();
+  const { plan, credits } = useSubscription();
 
   // Show loading state
   if (isPending) {
@@ -43,9 +45,13 @@ export default function ProfilePage() {
     );
   }
 
+  const user = session?.user;
   if (!user) {
     redirect("/login");
   }
+
+  const planLabel = plan ? plan.charAt(0).toUpperCase() + plan.slice(1) : "Free";
+  const creditsDisplay = credits ?? 0;
 
   const profileSections = [
     {
@@ -65,8 +71,8 @@ export default function ProfilePage() {
       icon: CreditCard,
       href: "/pricing",
       items: [
-        { label: "Current Plan", value: mockUser?.plan ? mockUser.plan.charAt(0).toUpperCase() + mockUser.plan.slice(1) : "Free" },
-        { label: "Credits Available", value: `${mockUser?.credits || 0} credits` },
+        { label: "Current Plan", value: `${planLabel} Plan` },
+        { label: "Credits Available", value: `${creditsDisplay} credits` },
         { label: "Purchase History", description: "View past transactions" },
       ],
     },
@@ -133,11 +139,11 @@ export default function ProfilePage() {
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
                   <Badge variant="secondary" className="gap-1">
                     <CreditCard className="h-3 w-3" />
-                    {mockUser?.plan ? mockUser.plan.charAt(0).toUpperCase() + mockUser.plan.slice(1) : "Free"} Plan
+                    {planLabel} Plan
                   </Badge>
                   <Badge variant="outline" className="gap-1">
                     <ImageIcon className="h-3 w-3" />
-                    {mockUser?.credits || 0} Credits
+                    {creditsDisplay} Credits
                   </Badge>
                   <Badge variant="outline" className="gap-1">
                     <Calendar className="h-3 w-3" />
@@ -160,7 +166,7 @@ export default function ProfilePage() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">{mockUser?.credits || 0}</div>
+                <div className="text-3xl font-bold text-primary">{creditsDisplay}</div>
                 <p className="text-sm text-muted-foreground mt-1">Credits Available</p>
               </div>
             </CardContent>

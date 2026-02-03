@@ -29,6 +29,20 @@
       "when": 1768582219811,
       "tag": "0003_early_colonel_america",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1770136034775,
+      "tag": "0004_fantastic_northstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1770143695857,
+      "tag": "0005_far_saracen",
+      "breakpoints": true
     }
   ]
 }

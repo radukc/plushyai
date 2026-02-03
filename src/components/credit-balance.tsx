@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useMockAuth } from "@/lib/mock-auth";
+import { useSubscription } from "@/lib/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 
 interface CreditBalanceProps {
@@ -21,14 +21,14 @@ export function CreditBalance({
   variant = "compact",
   className,
 }: CreditBalanceProps) {
-  const { user, isAuthenticated } = useMockAuth();
+  const { plan, credits, isLoading, isAuthenticated } = useSubscription();
 
-  if (!isAuthenticated || !user) {
+  if (!isAuthenticated || isLoading || credits === null) {
     return null;
   }
 
-  const isLow = user.credits < 10;
-  const planLabel = user.plan.charAt(0).toUpperCase() + user.plan.slice(1);
+  const isLow = credits < 10;
+  const planLabel = plan ? plan.charAt(0).toUpperCase() + plan.slice(1) : "Free";
 
   if (variant === "compact") {
     return (
@@ -45,12 +45,12 @@ export function CreditBalance({
               )}
             >
               <Coins className="h-4 w-4" />
-              <span>{user.credits}</span>
+              <span>{credits}</span>
               {isLow && <Plus className="h-3 w-3" />}
             </Link>
           </TooltipTrigger>
           <TooltipContent>
-            <p className="font-medium">{user.credits} credits remaining</p>
+            <p className="font-medium">{credits} credits remaining</p>
             <p className="text-xs text-muted-foreground">{planLabel} Plan</p>
             {isLow && (
               <p className="text-xs text-orange-600 mt-1">
@@ -87,7 +87,7 @@ export function CreditBalance({
             />
           </div>
           <div>
-            <p className="text-2xl font-bold">{user.credits}</p>
+            <p className="text-2xl font-bold">{credits}</p>
             <p className="text-xs text-muted-foreground">Credits Available</p>
           </div>
         </div>

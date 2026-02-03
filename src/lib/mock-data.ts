@@ -1,15 +1,5 @@
 // Mock data for Plushify SaaS UI development
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  image: string;
-  credits: number;
-  plan: "free" | "basic" | "pro" | "elite";
-  createdAt: Date;
-}
-
 export interface GalleryImage {
   id: string;
   originalUrl: string;
@@ -52,17 +42,6 @@ export interface FAQItem {
   answer: string;
   category: "general" | "billing" | "technical" | "privacy";
 }
-
-// Mock authenticated user
-export const mockUser: User = {
-  id: "user_1",
-  name: "Sarah Johnson",
-  email: "sarah@example.com",
-  image: "https://i.pravatar.cc/150?u=sarah",
-  credits: 47,
-  plan: "pro",
-  createdAt: new Date("2024-01-15"),
-};
 
 // Mock gallery images (before/after pairs)
 export const mockGalleryImages: GalleryImage[] = [

@@ -18,7 +18,7 @@ import { useAuth } from "@/lib/hooks/use-auth";
 import { mockGalleryImages, type GalleryImage } from "@/lib/mock-data";
 
 export default function GalleryPage() {
-  const { isAuthenticated, isPending, isMockAuthenticated } = useAuth();
+  const { isAuthenticated, isPending } = useAuth();
 
   // State for gallery
   const [images, setImages] = React.useState<GalleryImage[]>(mockGalleryImages);
@@ -84,7 +84,7 @@ export default function GalleryPage() {
   };
 
   // Auth loading state
-  if (isPending && !isMockAuthenticated) {
+  if (isPending) {
     return (
       <div className="flex justify-center items-center h-screen">
         Loading...

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Heart, Menu } from "lucide-react";
 import { UserProfile } from "@/components/auth/user-profile";
+import { useSession } from "@/lib/auth-client";
 import { NAV_LINKS } from "@/lib/constants";
-import { useMockAuth } from "@/lib/mock-auth";
 import { cn } from "@/lib/utils";
 import { CreditBalance } from "./credit-balance";
 import { Button } from "./ui/button";
@@ -21,13 +21,21 @@ import {
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const { isAuthenticated } = useMockAuth();
+  const { data: session } = useSession();
+  const isAuthenticated = !!session;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Check if user is admin
+  const platformRole = (session?.user as any)?.platformRole;
+  const isAdmin = platformRole === "admin";
 
   // Filter navigation links based on auth state
   const visibleLinks = NAV_LINKS.filter(
     (link) => !link.requiresAuth || isAuthenticated
   );
+
+  // Admin link object
+  const adminLink = { href: "/admin", label: "Admin" };
 
   return (
     <>
@@ -89,6 +97,20 @@ export function SiteHeader() {
                 {link.label}
               </Link>
             ))}
+            {/* Admin link - only visible to admin users */}
+            {isAdmin && (
+              <Link
+                href={adminLink.href}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  pathname === adminLink.href
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                )}
+              >
+                {adminLink.label}
+              </Link>
+            )}
           </div>
 
           {/* Desktop Actions */}
@@ -148,6 +170,21 @@ export function SiteHeader() {
                       {link.label}
                     </Link>
                   ))}
+                  {/* Admin link - only visible to admin users */}
+                  {isAdmin && (
+                    <Link
+                      href={adminLink.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "flex items-center px-4 py-3 rounded-lg text-base font-medium transition-all duration-200",
+                        pathname === adminLink.href
+                          ? "bg-primary/10 text-primary"
+                          : "text-foreground hover:bg-muted"
+                      )}
+                    >
+                      {adminLink.label}
+                    </Link>
+                  )}
                   <div className="border-t pt-4 mt-2">
                     <div className="px-4">
                       <UserProfile />
