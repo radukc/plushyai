@@ -23,7 +23,10 @@
       "Bash(curl:*)",
       "Bash(git commit:*)",
       "Bash(pnpm run lint:*)",
-      "Bash(pnpm run db:migrate:*)"
+      "Bash(pnpm run db:migrate:*)",
+      "mcp__context7__query-docs",
+      "WebSearch",
+      "WebFetch(domain:www.better-auth.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
