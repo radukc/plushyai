@@ -1,7 +1,8 @@
+import { UserManagement } from "@/components/admin/user-management";
 import { requireAdmin } from "@/lib/session";
 
 /**
- * Admin Dashboard - Placeholder
+ * Admin Dashboard
  *
  * This page is protected and only accessible to users with platformRole === "admin".
  * Non-admin users will be redirected to /dashboard.
@@ -13,25 +14,19 @@ export default async function AdminPage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-6xl mx-auto space-y-8">
         {/* Page Header */}
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
           <p className="text-muted-foreground mt-1">
-            Platform administration (placeholder)
+            Manage users and platform settings
           </p>
         </div>
 
-        {/* Placeholder Content */}
-        <div className="border rounded-lg p-8 bg-card">
-          <div className="text-center py-12">
-            <p className="text-lg text-muted-foreground">
-              Admin dashboard placeholder
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              This page will be populated with admin features in a future step.
-            </p>
-          </div>
+        {/* User Management Section */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold">User Management</h2>
+          <UserManagement />
         </div>
       </div>
     </main>
