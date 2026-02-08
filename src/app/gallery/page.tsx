@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Lock, SlidersHorizontal, ArrowUpDown, Plus } from "lucide-react";
+import { Loader2, Lock, SlidersHorizontal, ArrowUpDown, Plus } from "lucide-react";
+import { toast } from "sonner";
 import { UserProfile } from "@/components/auth/user-profile";
 import { ComparisonModal } from "@/components/gallery/comparison-modal";
 import { ImageGrid } from "@/components/gallery/image-grid";
@@ -15,13 +16,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth } from "@/lib/hooks/use-auth";
-import { mockGalleryImages, type GalleryImage } from "@/lib/mock-data";
+import type { GalleryImage } from "@/lib/types";
+import { qualityToSize } from "@/lib/types";
 
 export default function GalleryPage() {
   const { isAuthenticated, isPending } = useAuth();
 
   // State for gallery
-  const [images, setImages] = React.useState<GalleryImage[]>(mockGalleryImages);
+  const [images, setImages] = React.useState<GalleryImage[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [fetchError, setFetchError] = React.useState<string | null>(null);
   const [selectedImage, setSelectedImage] = React.useState<GalleryImage | null>(
     null
   );
@@ -29,11 +33,53 @@ export default function GalleryPage() {
   const [sortBy, setSortBy] = React.useState("newest");
   const [filterStyle, setFilterStyle] = React.useState("all");
 
+  // Fetch gallery data from API
+  const fetchGallery = React.useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setFetchError(null);
+      const response = await fetch("/api/gallery");
+      if (!response.ok) {
+        throw new Error("Failed to fetch gallery");
+      }
+      const data = await response.json();
+      const mapped: GalleryImage[] = data.generations.map(
+        (g: {
+          id: string;
+          originalUrl: string;
+          generatedUrl: string;
+          style: string;
+          quality: string;
+          createdAt: string;
+        }) => ({
+          id: g.id,
+          originalUrl: g.originalUrl,
+          plushifiedUrl: g.generatedUrl,
+          style: g.style,
+          quality: g.quality as GalleryImage["quality"],
+          createdAt: new Date(g.createdAt),
+          size: qualityToSize(g.quality),
+        })
+      );
+      setImages(mapped);
+    } catch {
+      setFetchError("Failed to load gallery. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      fetchGallery();
+    }
+  }, [isAuthenticated, fetchGallery]);
+
   // Get unique styles from images
   const styles = React.useMemo(() => {
-    const uniqueStyles = new Set(mockGalleryImages.map((img) => img.style));
+    const uniqueStyles = new Set(images.map((img) => img.style));
     return Array.from(uniqueStyles);
-  }, []);
+  }, [images]);
 
   // Filter and sort images
   const filteredImages = React.useMemo(() => {
@@ -67,19 +113,45 @@ export default function GalleryPage() {
     setIsModalOpen(true);
   };
 
+  const downloadImage = async (url: string, filename: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(blobUrl);
+    } catch {
+      window.open(url, "_blank");
+    }
+  };
+
   const handleDownload = (image: GalleryImage) => {
-    window.open(image.plushifiedUrl, "_blank");
+    downloadImage(image.plushifiedUrl, `plushie-${image.id}.jpg`);
   };
 
   const handleDownloadOriginal = (image: GalleryImage) => {
-    window.open(image.originalUrl, "_blank");
+    downloadImage(image.originalUrl, `original-${image.id}.jpg`);
   };
 
-  const handleDelete = (image: GalleryImage) => {
-    setImages((prev) => prev.filter((img) => img.id !== image.id));
-    if (selectedImage?.id === image.id) {
-      setSelectedImage(null);
-      setIsModalOpen(false);
+  const handleDelete = async (image: GalleryImage) => {
+    try {
+      const response = await fetch(`/api/gallery/${image.id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete");
+      }
+      setImages((prev) => prev.filter((img) => img.id !== image.id));
+      if (selectedImage?.id === image.id) {
+        setSelectedImage(null);
+        setIsModalOpen(false);
+      }
+      toast.success("Image deleted successfully.");
+    } catch {
+      toast.error("Failed to delete image. Please try again.");
     }
   };
 
@@ -106,6 +178,23 @@ export default function GalleryPage() {
           </div>
           <UserProfile />
         </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-muted-foreground mb-4">{fetchError}</p>
+        <Button onClick={fetchGallery}>Retry</Button>
       </div>
     );
   }

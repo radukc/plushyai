@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { Lock } from "lucide-react";
+import { toast } from "sonner";
+import { generatePlushie } from "@/actions/generate-plushie";
 import { UserProfile } from "@/components/auth/user-profile";
 import { GenerationSettings } from "@/components/dashboard/generation-settings";
 import { PreviewPanel } from "@/components/dashboard/preview-panel";
@@ -12,11 +14,11 @@ import type { GenerationStatus } from "@/components/generation-progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useSession } from "@/lib/auth-client";
-import { PLUSHIE_STYLES } from "@/lib/constants";
-import { mockGalleryImages } from "@/lib/mock-data";
+import { useSubscription } from "@/lib/hooks/use-subscription";
 
 export default function DashboardPage() {
   const { data: session, isPending } = useSession();
+  const { refetch } = useSubscription();
   const isAuthenticated = !!session;
   const [isMounted, setIsMounted] = React.useState(false);
 
@@ -38,8 +40,20 @@ export default function DashboardPage() {
   );
   const [isSavedToGallery, setIsSavedToGallery] = React.useState(false);
 
+  // Clean up Object URLs on unmount
+  React.useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Handle image selection
   const handleImageSelect = (file: File) => {
+    // Revoke previous URL to prevent memory leak
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
     setSelectedImage(file);
     setPreviewUrl(URL.createObjectURL(file));
     // Reset generation state
@@ -62,60 +76,78 @@ export default function DashboardPage() {
     setIsSavedToGallery(false);
   };
 
-  // Simulate generation process
-  const handleGenerate = () => {
+  // Real generation via server action
+  const handleGenerate = async () => {
     if (!selectedImage) return;
 
     setGenerationStatus("uploading");
     setGenerationProgress(0);
     setIsSavedToGallery(false);
 
-    // Simulate upload phase
-    setTimeout(() => {
-      setGenerationProgress(20);
-      setGenerationStatus("analyzing");
+    // Build FormData
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    formData.append("styleId", selectedStyle);
+    formData.append("qualityId", quality);
 
-      // Simulate analyzing phase
-      setTimeout(() => {
-        setGenerationProgress(40);
-        setGenerationStatus("generating");
+    // Show progress states
+    setGenerationProgress(20);
+    setGenerationStatus("analyzing");
 
-        // Simulate generation phase with progress updates
-        let progress = 40;
-        const progressInterval = setInterval(() => {
-          progress += 10;
-          setGenerationProgress(progress);
-
-          if (progress >= 80) {
-            clearInterval(progressInterval);
-            setGenerationStatus("finalizing");
-
-            // Simulate finalizing phase
-            setTimeout(() => {
-              setGenerationProgress(100);
-              setGenerationStatus("complete");
-              // Find the style name from the selected style ID
-              const selectedStyleConfig = PLUSHIE_STYLES.find(
-                (s) => s.id === selectedStyle
-              );
-              const styleName = selectedStyleConfig?.name || "Classic Plushie";
-              // Filter mock images by the selected style
-              const matchingImages = mockGalleryImages.filter(
-                (img) => img.style === styleName
-              );
-              // Use a matching image, or fall back to first image
-              const mockResult =
-                matchingImages[
-                  Math.floor(Math.random() * matchingImages.length)
-                ] || mockGalleryImages[0];
-              if (mockResult) {
-                setGeneratedImageUrl(mockResult.plushifiedUrl);
-              }
-            }, 1000);
-          }
-        }, 500);
-      }, 1500);
+    // Simulate progress while waiting for server action
+    const progressTimer = setInterval(() => {
+      setGenerationProgress((prev) => {
+        if (prev >= 80) {
+          clearInterval(progressTimer);
+          return 80;
+        }
+        return prev + 5;
+      });
     }, 1000);
+
+    setGenerationStatus("generating");
+
+    try {
+      const result = await generatePlushie(formData);
+      clearInterval(progressTimer);
+
+      if (result.success) {
+        setGenerationProgress(100);
+        setGenerationStatus("complete");
+        setGeneratedImageUrl(result.generatedUrl);
+        setIsSavedToGallery(true); // Server action auto-saves to DB
+        toast.success("Plushie generated successfully!");
+        await refetch(); // Update credit display
+      } else {
+        setGenerationStatus("error");
+        setGenerationProgress(0);
+
+        switch (result.error) {
+          case "INSUFFICIENT_CREDITS":
+            toast.error(result.message, {
+              action: {
+                label: "Buy Credits",
+                onClick: () => window.location.assign("/pricing"),
+              },
+            });
+            break;
+          case "UNAUTHORIZED":
+            toast.error("Please sign in to generate images.");
+            break;
+          case "INVALID_INPUT":
+            toast.error(result.message);
+            break;
+          case "GENERATION_FAILED":
+            toast.error(result.message);
+            break;
+        }
+      }
+    } catch {
+      clearInterval(progressTimer);
+      setGenerationStatus("error");
+      setGenerationProgress(0);
+      toast.error("An unexpected error occurred. Please try again.");
+    }
   };
 
   // Handle generate another
@@ -123,25 +155,32 @@ export default function DashboardPage() {
     handleImageClear();
   };
 
-  // Mock handlers
-  const handleDownload = () => {
-    if (generatedImageUrl) {
-      window.open(generatedImageUrl, "_blank");
-    }
-  };
-
-  const handleDownloadHD = () => {
-    if (generatedImageUrl) {
+  const handleDownload = async () => {
+    if (!generatedImageUrl) return;
+    try {
+      const response = await fetch(generatedImageUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "plushie.jpg";
+      link.click();
+      URL.revokeObjectURL(blobUrl);
+    } catch {
+      // Fallback: open in new tab
       window.open(generatedImageUrl, "_blank");
     }
   };
 
   const handleSaveToGallery = () => {
+    // Already saved by server action
     setIsSavedToGallery(true);
   };
 
   const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
+    if (generatedImageUrl) {
+      navigator.clipboard.writeText(generatedImageUrl);
+    }
   };
 
   // Auth loading state - use isMounted to avoid hydration mismatch
@@ -243,11 +282,9 @@ export default function DashboardPage() {
           <div className="p-4 lg:p-6 border-t border-border">
             <ResultsDisplay
               onDownload={handleDownload}
-              onDownloadHD={handleDownloadHD}
               onSaveToGallery={handleSaveToGallery}
               onGenerateAnother={handleGenerateAnother}
               onShare={handleShare}
-              hdCreditCost={1}
               isSaved={isSavedToGallery}
             />
           </div>

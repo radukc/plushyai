@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ImageComparisonSlider } from "@/components/ui/image-comparison-slider";
 import { Separator } from "@/components/ui/separator";
-import { formatDate, type GalleryImage } from "@/lib/mock-data";
+import { formatDate, type GalleryImage } from "@/lib/types";
 
 interface ComparisonModalProps {
   image: GalleryImage | null;

@@ -1,6 +1,6 @@
 "use client";
 
-import type { GalleryImage } from "@/lib/mock-data";
+import type { GalleryImage } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { EmptyState } from "./empty-state";
 import { ImageCard } from "./image-card";

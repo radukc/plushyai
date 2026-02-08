@@ -1,250 +1,125 @@
-# Agentic Coding Boilerplate - AI Assistant Guidelines
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-This is a Next.js 16 boilerplate for building AI-powered applications with authentication, database, and modern UI components.
+Plushify is an AI-powered SaaS that transforms photos into plushie-style images. Built on Next.js 16 with App Router, React 19, TypeScript (strict mode), BetterAuth, PostgreSQL via Drizzle ORM, and AI image generation via OpenRouter + Vercel AI SDK 5.
 
-### Tech Stack
-
-- **Framework**: Next.js 16 with App Router, React 19, TypeScript
-- **AI Integration**: Vercel AI SDK 5 + OpenRouter (access to 100+ AI models)
-- **Authentication**: BetterAuth with Email/Password
-- **Database**: PostgreSQL with Drizzle ORM
-- **UI**: shadcn/ui components with Tailwind CSS 4
-- **Styling**: Tailwind CSS with dark mode support (next-themes)
-
-## AI Integration with OpenRouter
-
-### Key Points
-
-- This project uses **OpenRouter** as the AI provider, NOT direct OpenAI
-- OpenRouter provides access to 100+ AI models through a single unified API
-- Default model: `openai/gpt-5-mini` (configurable via `OPENROUTER_MODEL` env var)
-- Users browse models at: https://openrouter.ai/models
-- Users get API keys from: https://openrouter.ai/settings/keys
-
-### AI Implementation Files
-
-- `src/app/api/chat/route.ts` - Chat API endpoint using OpenRouter
-- Package: `@openrouter/ai-sdk-provider` (not `@ai-sdk/openai`)
-- Import: `import { openrouter } from "@openrouter/ai-sdk-provider"`
-
-## Project Structure
-
-```
-src/
-├── app/                          # Next.js App Router
-│   ├── (auth)/                  # Auth route group
-│   │   ├── login/               # Login page
-│   │   ├── register/            # Registration page
-│   │   ├── forgot-password/     # Forgot password page
-│   │   └── reset-password/      # Reset password page
-│   ├── api/
-│   │   ├── auth/[...all]/       # Better Auth catch-all route
-│   │   ├── chat/route.ts        # AI chat endpoint (OpenRouter)
-│   │   └── diagnostics/         # System diagnostics
-│   ├── chat/page.tsx            # AI chat interface (protected)
-│   ├── dashboard/page.tsx       # User dashboard (protected)
-│   ├── profile/page.tsx         # User profile (protected)
-│   ├── page.tsx                 # Home/landing page
-│   └── layout.tsx               # Root layout
-├── components/
-│   ├── auth/                    # Authentication components
-│   │   ├── sign-in-button.tsx   # Sign in form
-│   │   ├── sign-up-form.tsx     # Sign up form
-│   │   ├── forgot-password-form.tsx
-│   │   ├── reset-password-form.tsx
-│   │   ├── sign-out-button.tsx
-│   │   └── user-profile.tsx
-│   ├── ui/                      # shadcn/ui components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── dialog.tsx
-│   │   ├── dropdown-menu.tsx
-│   │   ├── avatar.tsx
-│   │   ├── badge.tsx
-│   │   ├── separator.tsx
-│   │   ├── mode-toggle.tsx      # Dark/light mode toggle
-│   │   └── github-stars.tsx
-│   ├── site-header.tsx          # Main navigation header
-│   ├── site-footer.tsx          # Footer component
-│   ├── theme-provider.tsx       # Dark mode provider
-│   ├── setup-checklist.tsx      # Setup guide component
-│   └── starter-prompt-modal.tsx # Starter prompts modal
-└── lib/
-    ├── auth.ts                  # Better Auth server config
-    ├── auth-client.ts           # Better Auth client hooks
-    ├── db.ts                    # Database connection
-    ├── schema.ts                # Drizzle schema (users, sessions, etc.)
-    ├── storage.ts               # File storage abstraction (Vercel Blob / local)
-    └── utils.ts                 # Utility functions (cn, etc.)
-```
-
-## Environment Variables
-
-Required environment variables (see `env.example`):
-
-```env
-# Database
-POSTGRES_URL=postgresql://user:password@localhost:5432/db_name
-
-# Better Auth
-BETTER_AUTH_SECRET=32-char-random-string
-
-# AI via OpenRouter
-OPENROUTER_API_KEY=sk-or-v1-your-key
-OPENROUTER_MODEL=openai/gpt-5-mini  # or any model from openrouter.ai/models
-
-# App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
-# File Storage (optional)
-BLOB_READ_WRITE_TOKEN=  # Leave empty for local dev, set for Vercel Blob in production
-```
-
-## Available Scripts
+## Commands
 
 ```bash
-npm run dev          # Start dev server (DON'T run this yourself - ask user)
-npm run build        # Build for production (runs db:migrate first)
-npm run build:ci     # Build without database (for CI/CD pipelines)
-npm run start        # Start production server
-npm run lint         # Run ESLint (ALWAYS run after changes)
-npm run typecheck    # TypeScript type checking (ALWAYS run after changes)
-npm run db:generate  # Generate database migrations
-npm run db:migrate   # Run database migrations
-npm run db:push      # Push schema changes to database
-npm run db:studio    # Open Drizzle Studio (database GUI)
-npm run db:dev       # Push schema for development
-npm run db:reset     # Reset database (drop all tables)
+pnpm run dev          # Start dev server with Turbopack (DON'T run this yourself)
+pnpm run check        # Run lint + typecheck (ALWAYS run after changes)
+pnpm run lint         # ESLint only
+pnpm run typecheck    # tsc --noEmit only
+pnpm run build        # Production build
+pnpm run db:generate  # Generate Drizzle migrations after schema changes
+pnpm run db:migrate   # Apply migrations
+pnpm run db:push      # Push schema directly (dev shortcut)
+pnpm run db:studio    # Open Drizzle Studio GUI
 ```
 
-## Documentation Files
+**Critical**: Always run `pnpm run check` after completing changes. Never start the dev server yourself.
 
-The project includes technical documentation in `docs/`:
+## Architecture
 
-- `docs/technical/ai/streaming.md` - AI streaming implementation guide
-- `docs/technical/ai/structured-data.md` - Structured data extraction
-- `docs/technical/react-markdown.md` - Markdown rendering guide
-- `docs/technical/betterauth/polar.md` - Polar payment integration
-- `docs/business/starter-prompt.md` - Business context for AI prompts
+### AI Integration (OpenRouter, NOT OpenAI)
 
-## Guidelines for AI Assistants
+- Provider: `@openrouter/ai-sdk-provider` -- import `openrouter` from it
+- Image generation uses `generateText()` with `openrouter("google/gemini-2.5-flash-image")` -- hardcoded model, NOT the `OPENROUTER_MODEL` env var
+- Must pass `providerOptions: { openrouter: { modalities: ["image", "text"] } }` for image output
+- Generated images come back in `result.files` array (provider maps OpenRouter's `choices[0].message.images` to AI SDK file parts)
+- Chat endpoint uses `OPENROUTER_MODEL` env var (default `openai/gpt-5-mini`)
 
-### CRITICAL RULES
+### Authentication (BetterAuth)
 
-1. **ALWAYS run lint and typecheck** after completing changes:
+**Server-side** (API routes, server actions):
+```typescript
+import { auth } from "@/lib/auth";
+const session = await auth.api.getSession({ headers: await headers() });
+```
 
-   ```bash
-   npm run lint && npm run typecheck
-   ```
+**Server Components** (protected pages):
+```typescript
+import { requireAuth, requireAdmin } from "@/lib/session";
+await requireAdmin(); // redirects if not admin
+```
 
-2. **NEVER start the dev server yourself**
+**Client Components** (protected pages):
+```typescript
+import { useSession } from "@/lib/auth-client";
+const { data: session, isPending } = useSession();
+// OR
+import { useAuth } from "@/lib/hooks/use-auth";
+const { isAuthenticated, isPending } = useAuth();
+```
 
-   - If you need dev server output, ask the user to provide it
-   - Don't run `npm run dev` or `pnpm dev`
+**API route auth pattern** -- check session, return 401 if missing. Admin routes additionally check `platformRole === "admin"`.
 
-3. **Use OpenRouter, NOT OpenAI directly**
+### Credit/Subscription System
 
-   - Import from `@openrouter/ai-sdk-provider`
-   - Use `openrouter()` function, not `openai()`
-   - Model names follow OpenRouter format: `provider/model-name`
+- `src/lib/subscription.ts` -- server-side functions: `ensureSubscription`, `consumeCredits`, `addCredits`
+- `consumeCredits` uses atomic SQL: `UPDATE ... SET credits = credits - $amount WHERE credits >= $amount` -- prevents race conditions
+- Server action pattern: consume credits before generation, refund via `addCredits` on any failure (wrapped in try/catch to prevent silent refund failures)
+- Client hook: `useSubscription()` from `src/lib/hooks/use-subscription.ts` -- returns `{ plan, credits, refetch }`
 
-4. **Styling Guidelines**
+### File Storage Abstraction
 
-   - Stick to standard Tailwind CSS utility classes
-   - Use shadcn/ui color tokens (e.g., `bg-background`, `text-foreground`)
-   - Avoid custom colors unless explicitly requested
-   - Support dark mode with appropriate Tailwind classes
+`src/lib/storage.ts` -- switches automatically based on `BLOB_READ_WRITE_TOKEN` env var:
+- **Local dev** (no token): saves to `public/uploads/`, serves at `/uploads/`
+- **Production** (token set): uses Vercel Blob (`@vercel/blob`)
 
-5. **Authentication**
+Functions: `upload(buffer, filename, folder)`, `deleteFile(url)`
 
-   - Server-side: Import from `@/lib/auth` (Better Auth instance)
-   - Client-side: Import hooks from `@/lib/auth-client`
-   - Protected routes should check session in Server Components
-   - Use existing auth components from `src/components/auth/`
+### Server Actions vs API Routes
 
-6. **Database Operations**
+- **Mutations** use server actions (e.g., `src/actions/generate-plushie.ts`)
+- **Data fetching** uses API routes (e.g., `GET /api/gallery`, `GET /api/subscription`)
+- Server actions include `"use server"` directive, accept FormData, return discriminated union `{ success: true, ... } | { success: false, error: ErrorCode, message: string }`
 
-   - Use Drizzle ORM (imported from `@/lib/db`)
-   - Schema is defined in `@/lib/schema`
-   - Always run migrations after schema changes
-   - PostgreSQL is the database (not SQLite, MySQL, etc.)
+### Database
 
-7. **File Storage**
+- PostgreSQL via `postgres` (postgres.js) + Drizzle ORM
+- Schema: `src/lib/schema.ts` -- tables: `user`, `session`, `account`, `verification` (BetterAuth-managed), `generation`, `subscription` (app-specific)
+- BetterAuth tables use text IDs; app tables use UUID (`crypto.randomUUID()`)
+- After schema changes: `pnpm run db:generate` then `pnpm run db:migrate`
 
-   - Use the storage abstraction from `@/lib/storage`
-   - Automatically uses local storage (dev) or Vercel Blob (production)
-   - Import: `import { upload, deleteFile } from "@/lib/storage"`
-   - Example: `const result = await upload(buffer, "avatar.png", "avatars")`
-   - Storage switches based on `BLOB_READ_WRITE_TOKEN` environment variable
+### Routing
 
-8. **Component Creation**
+- Uses Next.js 16 `src/proxy.ts` for optimistic cookie-based redirects (NOT middleware.ts)
+- Route groups: `(auth)/` for login/register, `(legal)/` for legal pages
+- Protected client pages: dashboard, gallery, profile (use client-side session check)
+- Protected server pages: admin (uses `requireAdmin()`)
 
-   - Use existing shadcn/ui components when possible
-   - Follow the established patterns in `src/components/ui/`
-   - Support both light and dark modes
-   - Use TypeScript with proper types
+## Key Conventions
 
-9. **API Routes**
-   - Follow Next.js 16 App Router conventions
-   - Use Route Handlers (route.ts files)
-   - Return Response objects
-   - Handle errors appropriately
+### Styling
+- Tailwind CSS 4 with shadcn/ui (`new-york` style, `lucide` icons)
+- Use shadcn color tokens: `bg-background`, `text-foreground`, `text-muted-foreground`
+- Support dark mode via Tailwind classes -- both modes must work
+- Install new components: `pnpm dlx shadcn@latest add <component>`
 
-### Best Practices
+### TypeScript
+- Strict mode with `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noUnusedLocals`, `noUnusedParameters`
+- Path alias: `@/*` maps to `./src/*`
 
-- Read existing code patterns before creating new features
-- Maintain consistency with established file structure
-- Use the documentation files when implementing related features
-- Test changes with lint and typecheck before considering complete
-- When modifying AI functionality, refer to `docs/technical/ai/` guides
+### ESLint
+- `no-console`: only `console.warn` and `console.error` allowed
+- `import/order`: enforced alphabetical grouping (builtin > external > internal > parent > sibling)
+- `prefer-const`, `no-var`, `eqeqeq: always`
 
-### Common Tasks
+### App Config
+- Central config in `src/lib/constants.ts`: `APP_CONFIG`, `PLUSHIE_STYLES`, `GENERATION_QUALITY_OPTIONS`, `CREDIT_COSTS`, `PLAN_LIMITS`
+- Shared gallery types in `src/lib/types.ts` (NOT `src/lib/mock-data.ts`)
+- Mock data for landing page only: `src/lib/mock-data.ts` (testimonials, pricing, FAQ)
 
-**Adding a new page:**
+### Environment Variables
+Required: `POSTGRES_URL`, `BETTER_AUTH_SECRET`
+AI: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`
+Storage: `BLOB_READ_WRITE_TOKEN` (empty = local dev)
+App: `NEXT_PUBLIC_APP_URL`
 
-1. Create in `src/app/[route]/page.tsx`
-2. Use Server Components by default
-3. Add to navigation if needed
+## Feature Specs
 
-**Adding a new API route:**
-
-1. Create in `src/app/api/[route]/route.ts`
-2. Export HTTP method handlers (GET, POST, etc.)
-3. Use proper TypeScript types
-
-**Adding authentication to a page:**
-
-1. Import auth instance: `import { auth } from "@/lib/auth"`
-2. Get session: `const session = await auth.api.getSession({ headers: await headers() })`
-3. Check session and redirect if needed
-
-**Working with the database:**
-
-1. Update schema in `src/lib/schema.ts`
-2. Generate migration: `npm run db:generate`
-3. Apply migration: `npm run db:migrate`
-4. Import `db` from `@/lib/db` to query
-
-**Modifying AI chat:**
-
-1. Backend: `src/app/api/chat/route.ts`
-2. Frontend: `src/app/chat/page.tsx`
-3. Reference streaming docs: `docs/technical/ai/streaming.md`
-4. Remember to use OpenRouter, not direct OpenAI
-
-**Working with file storage:**
-
-1. Import storage functions: `import { upload, deleteFile } from "@/lib/storage"`
-2. Upload files: `const result = await upload(fileBuffer, "filename.png", "folder")`
-3. Delete files: `await deleteFile(result.url)`
-4. Storage automatically uses local filesystem in dev, Vercel Blob in production
-5. Local files are saved to `public/uploads/` and served at `/uploads/`
-
-## Package Manager
-
-This project uses **pnpm** (see `pnpm-lock.yaml`). When running commands:
-
-- Use `pnpm` instead of `npm` when possible
-- Scripts defined in package.json work with `pnpm run [script]`
+Feature specs live in `specs/<feature-name>/` with `requirements.md` and `plan.md`. Plans use checkbox-based task tracking across numbered phases.

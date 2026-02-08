@@ -5,7 +5,7 @@ import { Eye, Download, Trash2 } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { formatDate, type GalleryImage } from "@/lib/mock-data";
+import { formatDate, type GalleryImage } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface ImageCardProps {

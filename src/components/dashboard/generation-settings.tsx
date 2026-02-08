@@ -82,18 +82,18 @@ export function GenerationSettings({
       </div>
 
       {/* Background Removal Toggle */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between opacity-50">
         <div className="space-y-0.5">
           <Label htmlFor="bg-removal">Background Removal</Label>
           <p className="text-xs text-muted-foreground">
-            Remove background automatically
+            Coming soon
           </p>
         </div>
         <Switch
           id="bg-removal"
           checked={backgroundRemoval}
           onCheckedChange={onBackgroundRemovalChange}
-          disabled={disabled || isGenerating}
+          disabled
         />
       </div>
 

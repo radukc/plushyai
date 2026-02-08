@@ -82,6 +82,26 @@ export const verification = pgTable("verification", {
     .notNull(),
 });
 
+export const generation = pgTable(
+  "generation",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    originalUrl: text("original_url").notNull(),
+    generatedUrl: text("generated_url").notNull(),
+    style: text("style").notNull(),
+    quality: text("quality").notNull(),
+    creditsCost: integer("credits_cost").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("generation_user_id_idx").on(table.userId),
+    index("generation_created_at_idx").on(table.createdAt),
+  ]
+);
+
 export const subscription = pgTable(
   "subscription",
   {

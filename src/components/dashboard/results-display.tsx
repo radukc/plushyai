@@ -7,7 +7,6 @@ import {
   RefreshCw,
   Share2,
   Check,
-  Coins,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,22 +19,18 @@ import { cn } from "@/lib/utils";
 
 interface ResultsDisplayProps {
   onDownload: () => void;
-  onDownloadHD: () => void;
   onSaveToGallery: () => void;
   onGenerateAnother: () => void;
   onShare: () => void;
-  hdCreditCost?: number;
   isSaved?: boolean;
   className?: string;
 }
 
 export function ResultsDisplay({
   onDownload,
-  onDownloadHD,
   onSaveToGallery,
   onGenerateAnother,
   onShare,
-  hdCreditCost = 1,
   isSaved = false,
   className,
 }: ResultsDisplayProps) {
@@ -64,23 +59,6 @@ export function ResultsDisplay({
             </Button>
           </TooltipTrigger>
           <TooltipContent>Download standard resolution</TooltipContent>
-        </Tooltip>
-
-        {/* Download HD Button */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button onClick={onDownloadHD} variant="outline">
-              <Download className="h-4 w-4 mr-2" />
-              Download HD
-              <span className="ml-2 flex items-center text-xs text-muted-foreground">
-                <Coins className="h-3 w-3 mr-0.5" />
-                {hdCreditCost}
-              </span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            Download high resolution ({hdCreditCost} credit)
-          </TooltipContent>
         </Tooltip>
 
         {/* Save to Gallery Button */}

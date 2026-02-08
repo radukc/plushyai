@@ -43,6 +43,13 @@
       "when": 1770143695857,
       "tag": "0005_far_saracen",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1770586193505,
+      "tag": "0006_living_mongu",
+      "breakpoints": true
     }
   ]
 }
